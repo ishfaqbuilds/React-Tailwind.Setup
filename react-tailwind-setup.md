@@ -247,6 +247,8 @@ npm run dev
 
 Open the local URL shown in the terminal. Keep the terminal open while working. Stop the server with `Ctrl + C`.
 
+---
+
 ### `src/App.jsx` for a component-based project
 
 Use this version after you have created each component file and each one has a default export.
@@ -274,6 +276,8 @@ function App() {
 export default App;
 
 ```
+
+---
 
 ### `src/components/Navbar.jsx`
 
@@ -323,8 +327,9 @@ export default function Navbar() {
   );
 }
 ```
-
 This is the reusable Navbar we can use in any project.
+
+---
 
 ### `src/index.css`
 
@@ -358,6 +363,8 @@ This is the reusable Navbar we can use in any project.
 
 ```
 The index.css has the animation styles we want for the navbar.
+
+---
 
 ### `src/components/Hero.jsx`
 
