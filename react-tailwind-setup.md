@@ -73,23 +73,46 @@ Both should print version numbers. If either command is not recognized, restart 
 
 ## 2. Create a React project with Vite
 
-In Terminal (macOS) or PowerShell (Windows), run:
+Choose either method. Both create the same kind of React project.
+
+### Option A: Let Vite create the project folder
+
+Run these commands from the directory where you want the project folder created:
 
 ```bash
 npm create vite@latest my-frontend-project -- --template react
 cd my-frontend-project
 npm install
+npm run dev
 ```
 
-Replace `my-frontend-project` with your project name. This creates a React project using JavaScript.
+Replace `my-frontend-project` with your preferred project name. When prompted, choose **ESLint** if you want a linter, then choose **Yes** for installing dependencies and starting the dev server. If you choose that option, Vite runs `npm install` and `npm run dev` for you, so you do not need to run those commands again.
 
-Open in VS Code:
+To open the project in VS Code, open a second terminal or stop the dev server with **Ctrl + C**, then run this from inside the project folder:
 
 ```bash
 code .
 ```
 
 If `code .` does not work, open VS Code and select **File → Open Folder**.
+
+### Option B: Create and open the folder yourself first
+
+1. Create a folder named `my-frontend-project` on your Desktop or wherever you want it.
+2. Open that folder in VS Code using **File → Open Folder**.
+3. Open the integrated terminal in VS Code. Make sure the terminal is inside `my-frontend-project` and that the folder is empty.
+4. Run:
+
+```bash
+npm create vite@latest . -- --template react
+```
+
+The dot (`.`) tells Vite to scaffold the project in the current folder rather than creating another folder inside it. Choose **ESLint** if prompted. If asked whether to install dependencies and start now, choose **Yes**. Vite will install dependencies and start the dev server automatically. If you choose **No**, run:
+
+```bash
+npm install
+npm run dev
+```
 
 Vite requires a supported recent Node.js version. If Vite reports that Node is too old, install the current LTS version from nodejs.org.
 
@@ -184,9 +207,44 @@ my-frontend-project/
 └── README.md
 ```
 
-Create components as you need them. A public image referenced as `/logo.png` belongs at `public/logo.png`.
+Create components as you need them. Vite does not create a `components` folder automatically. From the project root, create the folders with:
 
-## 6. Starter templates
+```bash
+mkdir -p src/components src/assets
+```
+
+This command works in the macOS/Linux terminal and the VS Code terminal using a Unix-like shell. In Windows PowerShell, use:
+
+```powershell
+New-Item -ItemType Directory -Force src/components, src/assets
+```
+
+A public image referenced as `/logo.png` belongs at `public/logo.png`.
+
+## 6. What can I remove from the default Vite files?
+
+You do not need to delete the starter files to begin. You can replace the contents of the files listed below with the examples in this guide.
+
+### Safe to replace or remove if unused
+
+- `src/App.jsx`: **Replace its contents** with the `App.jsx` starter below.
+- `src/index.css`: **Replace its contents** with `@import "tailwindcss";` as shown above. This removes the default starter styles.
+- `src/App.css`: You can delete this if `App.jsx` no longer imports it.
+- `src/assets/react.svg`: You can delete this if you are not using the React logo.
+- `public/vite.svg`: You can delete this if you are not using the Vite logo.
+
+### Keep these files
+
+- `package.json`: required for project scripts and dependency information.
+- `package-lock.json`: keep it to preserve the dependency versions installed by npm.
+- `index.html`: Vite uses this as the HTML entry point.
+- `src/main.jsx`: keep it, and make sure it imports `./index.css` and `./App.jsx` as shown above.
+- `vite.config.js`: keep it and update it with the Tailwind v4 configuration shown above.
+- `node_modules/`: do not manually edit it. It contains installed packages and can be recreated with `npm install`.
+
+Do not delete a file just because it is not listed here. If you are unsure whether a file is used, search for its name in your imports first.
+
+## 7. Starter templates
 
 ### Minimal `src/App.jsx` to test the setup
 
@@ -296,7 +354,7 @@ export default function Hero() {
 
 If you use the component-based `App.jsx`, create `Features.jsx`, `Pricing.jsx`, `Testimonials.jsx`, and `Footer.jsx` too, or remove their imports until needed.
 
-## 7. Run the development server
+## 8. Run the development server
 
 From the project folder:
 
@@ -314,7 +372,7 @@ npm run build     # Create a production build
 npm run preview   # Preview the production build locally
 ```
 
-## 8. Use the project on another computer
+## 9. Use the project on another computer
 
 After copying or cloning the project:
 1. Install Node.js LTS.
@@ -328,7 +386,7 @@ npm run dev
 
 You usually do not need to install React, Vite, or Tailwind globally. `npm install` reads the project's `package.json`.
 
-## 9. Troubleshooting
+## 10. Troubleshooting
 
 - **`npm` not found:** install Node.js LTS, restart the terminal, then run `node -v` and `npm -v`.
 - **`Missing script: dev`:** make sure you are in the project folder and `package.json` has a `dev` script.
