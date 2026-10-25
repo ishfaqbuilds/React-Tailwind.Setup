@@ -1,25 +1,16 @@
 # React + Vite + Tailwind CSS v4 Setup
 
-Reusable setup guide for macOS and Windows.
+Reusable setup guide for macOS and Windows using VS Code.
 
-## Stack
+## Stack and documentation
 
-- HTML and CSS: structure and styling
-- JavaScript: programming language
 - React: reusable UI components
 - Vite: project setup and development server
 - Tailwind CSS v4: utility-first styling
-- Node.js: runs JavaScript tools locally
-- npm: installs packages and runs project scripts
-- Lucide React (optional): icons
-- VS Code: editor
+- Node.js and npm: run tools and install packages
+- Lucide React: optional icons
 
-Official documentation:
-- Node.js: https://nodejs.org/en/download
-- Vite: https://vite.dev/guide/
-- Tailwind v4 with Vite: https://tailwindcss.com/docs/installation/using-vite
-- React: https://react.dev/
-- Lucide React: https://lucide.dev/guide/packages/lucide-react
+Official guides: [Node.js](https://nodejs.org/en/download) · [Vite](https://vite.dev/guide/) · [Tailwind CSS v4 with Vite](https://tailwindcss.com/docs/installation/using-vite) · [React](https://react.dev/) · [Lucide React](https://lucide.dev/guide/packages/lucide-react)
 
 ## 1. Install Node.js and npm
 
@@ -73,48 +64,22 @@ Both should print version numbers. If either command is not recognized, restart 
 
 ## 2. Create a React project with Vite
 
-Choose either method. Both create the same kind of React project.
-
-### Option A: Let Vite create the project folder
-
-Run these commands from the directory where you want the project folder created:
-
-```bash
-npm create vite@latest my-frontend-project -- --template react
-cd my-frontend-project
-npm install
-npm run dev
-```
-
-Replace `my-frontend-project` with your preferred project name. When prompted, choose **ESLint** if you want a linter, then choose **Yes** for installing dependencies and starting the dev server. If you choose that option, Vite runs `npm install` and `npm run dev` for you, so you do not need to run those commands again.
-
-To open the project in VS Code, open a second terminal or stop the dev server with **Ctrl + C**, then run this from inside the project folder:
-
-```bash
-code .
-```
-
-If `code .` does not work, open VS Code and select **File → Open Folder**.
-
-### Option B: Create and open the folder yourself first
-
-1. Create a folder named `my-frontend-project` on your Desktop or wherever you want it.
-2. Open that folder in VS Code using **File → Open Folder**.
-3. Open the integrated terminal in VS Code. Make sure the terminal is inside `my-frontend-project` and that the folder is empty.
-4. Run:
+1. Create an empty folder named `my-frontend-project`.
+2. Open that folder in VS Code: **File → Open Folder**.
+3. Open the VS Code terminal and run:
 
 ```bash
 npm create vite@latest . -- --template react
 ```
 
-The dot (`.`) tells Vite to scaffold the project in the current folder rather than creating another folder inside it. Choose **ESLint** if prompted. If asked whether to install dependencies and start now, choose **Yes**. Vite will install dependencies and start the dev server automatically. If you choose **No**, run:
+Choose ESLint if prompted. If asked to install dependencies and start the server, choose **Yes**. Otherwise run:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Vite requires a supported recent Node.js version. If Vite reports that Node is too old, install the current LTS version from nodejs.org.
+The `.` means Vite creates the project inside the folder you already opened.
 
 ## 3. Install Tailwind CSS v4
 
@@ -136,7 +101,7 @@ export default defineConfig({
 })
 ```
 
-Set `src/index.css` to:
+Replace all contents of `src/index.css` with:
 
 ```css
 @import "tailwindcss";
@@ -157,9 +122,55 @@ createRoot(document.getElementById('root')).render(
 )
 ```
 
-For a basic Tailwind v4 setup, you do not need the old v3 directives (`@tailwind base`, `@tailwind components`, `@tailwind utilities`) or a `tailwind.config.js` file.
+## 4. Create component folders and files
 
-## 4. Optional: install Lucide React
+Run the command for your terminal from the project root.
+
+**macOS / Linux / Git Bash:**
+
+```bash
+mkdir -p src/components src/assets
+touch src/components/{Navbar,Hero,Features,Pricing,Testimonials,Footer}.jsx
+```
+
+**Windows PowerShell:**
+
+```powershell
+New-Item -ItemType Directory -Force src/components, src/assets
+'Navbar','Hero','Features','Pricing','Testimonials','Footer' | ForEach-Object { New-Item -ItemType File -Force "src/components/$_.jsx" }
+```
+
+These commands create empty component files. Add a React component with a default export to each file before importing it. Create only the components your project needs.
+
+Example `src/components/Footer.jsx`:
+
+```jsx
+export default function Footer() {
+  return (
+    <div>Footer</div>
+);
+}
+```
+
+## 5. Remove unused Vite starter files (optional)
+
+Only run the command for your terminal, and only if you have not added your own code or assets to these files.
+
+**macOS / Linux / Git Bash:**
+
+```bash
+rm -f src/App.css src/assets/react.svg public/vite.svg
+```
+
+**Windows PowerShell:**
+
+```powershell
+Remove-Item src/App.css, src/assets/react.svg, public/vite.svg -ErrorAction SilentlyContinue
+```
+
+If `src/App.jsx` imports `./App.css`, remove that import too. Keep `package.json`, `package-lock.json`, `index.html`, `src/main.jsx`, `src/App.jsx`, and `vite.config.js`. Do not delete `node_modules` as part of normal setup.
+
+## 6. Optional: Install Lucide React Icons
 
 ```bash
 npm install lucide-react
@@ -183,7 +194,7 @@ export default function IconExample() {
 
 Browse icons: https://lucide.dev/icons/
 
-## 5. Recommended project structure
+## 7. Recommended project structure
 
 ```text
 my-frontend-project/
@@ -207,43 +218,6 @@ my-frontend-project/
 └── README.md
 ```
 
-Create components as you need them. Vite does not create a `components` folder automatically. From the project root, create the folders with:
-
-```bash
-mkdir -p src/components src/assets
-```
-
-This command works in the macOS/Linux terminal and the VS Code terminal using a Unix-like shell. In Windows PowerShell, use:
-
-```powershell
-New-Item -ItemType Directory -Force src/components, src/assets
-```
-
-A public image referenced as `/logo.png` belongs at `public/logo.png`.
-
-## 6. What can I remove from the default Vite files?
-
-You do not need to delete the starter files to begin. You can replace the contents of the files listed below with the examples in this guide.
-
-### Safe to replace or remove if unused
-
-- `src/App.jsx`: **Replace its contents** with the `App.jsx` starter below.
-- `src/index.css`: **Replace its contents** with `@import "tailwindcss";` as shown above. This removes the default starter styles.
-- `src/App.css`: You can delete this if `App.jsx` no longer imports it.
-- `src/assets/react.svg`: You can delete this if you are not using the React logo.
-- `public/vite.svg`: You can delete this if you are not using the Vite logo.
-
-### Keep these files
-
-- `package.json`: required for project scripts and dependency information.
-- `package-lock.json`: keep it to preserve the dependency versions installed by npm.
-- `index.html`: Vite uses this as the HTML entry point.
-- `src/main.jsx`: keep it, and make sure it imports `./index.css` and `./App.jsx` as shown above.
-- `vite.config.js`: keep it and update it with the Tailwind v4 configuration shown above.
-- `node_modules/`: do not manually edit it. It contains installed packages and can be recreated with `npm install`.
-
-Do not delete a file just because it is not listed here. If you are unsure whether a file is used, search for its name in your imports first.
-
 ## 7. Starter templates
 
 ### Minimal `src/App.jsx` to test the setup
@@ -265,32 +239,40 @@ export default function App() {
 }
 ```
 
+Start the server:
+
+```bash
+npm run dev
+```
+
+Open the local URL shown in the terminal. Keep the terminal open while working. Stop the server with `Ctrl + C`.
+
 ### `src/App.jsx` for a component-based project
 
 Use this version after you have created each component file and each one has a default export.
 
 ```jsx
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Features from './components/Features'
-import Pricing from './components/Pricing'
-import Testimonials from './components/Testimonials'
-import Footer from './components/Footer'
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Features from "./components/Features";
+import Pricing from "./components/Pricing";
+import Testimonials from "./components/Testimonials";
+import Footer from "./components/Footer";
 
-export default function App() {
+function App() {
   return (
-    <>
+    <div className="min-h-screen bg-slate-950 text-white overflow-hidden">
       <Navbar />
-      <main className="pt-20">
-        <Hero />
-        <Features />
-        <Pricing />
-        <Testimonials />
-      </main>
+      <Hero />
+      <Features />
+      <Pricing />
+      <Testimonials />
       <Footer />
-    </>
-  )
+    </div>
+  );
 }
+export default App;
+
 ```
 
 ### `src/components/Navbar.jsx`
@@ -371,37 +353,3 @@ npm run dev       # Start the development server
 npm run build     # Create a production build
 npm run preview   # Preview the production build locally
 ```
-
-## 9. Use the project on another computer
-
-After copying or cloning the project:
-1. Install Node.js LTS.
-2. Open a terminal in the project folder.
-3. Run:
-
-```bash
-npm install
-npm run dev
-```
-
-You usually do not need to install React, Vite, or Tailwind globally. `npm install` reads the project's `package.json`.
-
-## 10. Troubleshooting
-
-- **`npm` not found:** install Node.js LTS, restart the terminal, then run `node -v` and `npm -v`.
-- **`Missing script: dev`:** make sure you are in the project folder and `package.json` has a `dev` script.
-- **Blank white page:** check the browser console and terminal for errors, especially missing imports or files.
-- **Tailwind styles do not work:** check `@import "tailwindcss";` in `src/index.css`, its import in `main.jsx`, and `tailwindcss()` in `vite.config.js`. Restart Vite after changing configuration.
-- **Module not found:** install the package or correct the import path and capitalization.
-- **Logo missing:** a URL like `/logo.png` usually requires `public/logo.png`.
-
-## Checklist
-
-- [ ] Node.js and npm installed
-- [ ] Vite React project created
-- [ ] `npm install` completed
-- [ ] Tailwind v4 Vite plugin configured
-- [ ] `src/index.css` imports Tailwind
-- [ ] `src/main.jsx` imports `index.css`
-- [ ] `npm run dev` opens the site
-- [ ] Optional: Lucide React installed
