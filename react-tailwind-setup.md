@@ -369,27 +369,7 @@ The index.css has the animation styles we want for the navbar.
 ### `src/components/Hero.jsx`
 
 ```jsx
-export default function Hero() {
-  return (
-    <section className="px-4 py-24 text-center text-white sm:py-32">
-      <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-blue-400">
-        Welcome
-      </p>
-      <h1 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight sm:text-6xl">
-        Build something great.
-      </h1>
-      <p className="mx-auto mt-6 max-w-xl text-slate-300">
-        A clean, responsive starting point for your next project.
-      </p>
-      <a
-        href="#features"
-        className="mt-8 inline-flex rounded-lg bg-blue-500 px-5 py-3 font-semibold text-white hover:bg-blue-400"
-      >
-        Get started
-      </a>
-    </section>
-  )
-}
+
 ```
 
 If you use the component-based `App.jsx`, create `Features.jsx`, `Pricing.jsx`, `Testimonials.jsx`, and `Footer.jsx` too, or remove their imports until needed.
