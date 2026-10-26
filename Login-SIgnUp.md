@@ -109,6 +109,7 @@ This is a reusable template for a signup page!
 
 ``` bash
 npm install react-icons
+npm install react-router
 ```
 
 ### Imports
