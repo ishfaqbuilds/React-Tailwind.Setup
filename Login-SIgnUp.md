@@ -114,6 +114,7 @@ npm install react-icons
 
 ``` jsx
 import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router";
 ```
 
 ---
