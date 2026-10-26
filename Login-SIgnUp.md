@@ -5,6 +5,7 @@ This is a reusable template for login page!
 
 ```bash
 npm install react-icons
+npm install react-router
 ```
 
 ### Imports
